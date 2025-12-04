@@ -63,6 +63,7 @@ const TopBar: React.FC<TopBarProps> = ({
           type="text" 
           value={projectName}
           onChange={(e) => onRenameProject(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && e.currentTarget.blur()}
           className="bg-transparent border border-transparent hover:border-slate-300 focus:border-blue-500 focus:bg-white rounded px-2 py-1 text-slate-700 font-medium w-48 transition-all outline-none placeholder:text-slate-400"
           placeholder="Project Name"
           title="Rename Project"

@@ -58,6 +58,11 @@ const App: React.FC = () => {
   // Ref to the THREE.Group containing user objects for export
   const sceneRef = useRef<THREE.Group | null>(null);
 
+  // Sync Document Title
+  useEffect(() => {
+    document.title = `${projectName || 'Untitled'} - Kid3DStudio`;
+  }, [projectName]);
+
   // --- Notification Helper ---
   const showNotification = useCallback((message: string, type: 'error' | 'info' | 'success' = 'info') => {
     setNotification({ message, type });
@@ -435,7 +440,8 @@ const App: React.FC = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${projectName.replace(/\s+/g, '_')}.json`;
+    const safeName = (projectName.trim() || 'Untitled').replace(/\s+/g, '_');
+    a.download = `${safeName}.json`;
     a.click();
     URL.revokeObjectURL(url);
     showNotification("Project saved!", "success");
@@ -552,7 +558,8 @@ const App: React.FC = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `${projectName.replace(/\s+/g, '_')}.stl`;
+    const safeName = (projectName.trim() || 'Untitled').replace(/\s+/g, '_');
+    link.download = `${safeName}.stl`;
     link.click();
     URL.revokeObjectURL(url);
     showNotification("STL export started.", "success");
@@ -568,7 +575,8 @@ const App: React.FC = () => {
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = url;
-                link.download = `${projectName.replace(/\s+/g, '_')}.3mf`;
+                const safeName = (projectName.trim() || 'Untitled').replace(/\s+/g, '_');
+                link.download = `${safeName}.3mf`;
                 link.click();
                 URL.revokeObjectURL(url);
             });
